@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://by1t3mp5yidhs"]
+
+[ext_resource type="PackedScene" uid="uid://b6ddjr5vp5weh" path="res://scenarios/arrive.tscn" id="1_2i5rx"]
+
+[node name="game" type="Node2D"]
+
+[node name="background" type="ColorRect" parent="."]
+offset_left = -48.0
+offset_top = -39.0
+offset_right = 1216.0
+offset_bottom = 705.0
+color = Color(0, 0, 0.141176, 1)
+
+[node name="arrive" parent="." instance=ExtResource("1_2i5rx")]

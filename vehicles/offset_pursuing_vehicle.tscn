@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=3 uid="uid://bsxx8mmxh8a5u"]
+
+[ext_resource type="PackedScene" uid="uid://cxi54gpin4hg2" path="res://vehicles/vehicle.tscn" id="1_3b8ps"]
+[ext_resource type="Script" path="res://vehicles/offset_pursuing_vehicle.gd" id="2_mrd1s"]
+
+[node name="offset_pursuing_vehicle" instance=ExtResource("1_3b8ps")]
+script = ExtResource("2_mrd1s")

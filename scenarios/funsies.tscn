@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://chvgjsd1am5yp"]
+
+[ext_resource type="PackedScene" uid="uid://4jey0e27fxnu" path="res://targets/fleeing_target.tscn" id="1_gabhm"]
+[ext_resource type="PackedScene" uid="uid://ba65gavov6hfm" path="res://vehicles/pursuing_vehicle.tscn" id="2_k3inf"]
+[ext_resource type="Script" path="res://targets/fleeing_target.gd" id="2_p51fv"]
+
+[node name="funsies" type="Node2D"]
+
+[node name="fleeing_target" parent="." node_paths=PackedStringArray("target") instance=ExtResource("1_gabhm")]
+position = Vector2(426, 235)
+script = ExtResource("2_p51fv")
+target = NodePath("../pursuing_vehicle")
+
+[node name="pursuing_vehicle" parent="." node_paths=PackedStringArray("target") instance=ExtResource("2_k3inf")]
+position = Vector2(332, 142)
+target = NodePath("../fleeing_target")

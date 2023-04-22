@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=3 uid="uid://csd764hk0d3xi"]
+
+[ext_resource type="PackedScene" uid="uid://cxi54gpin4hg2" path="res://vehicles/vehicle.tscn" id="1_wep73"]
+[ext_resource type="Script" path="res://vehicles/arriving_vehicle.gd" id="2_tetw7"]
+
+[node name="arriving_vehicle" instance=ExtResource("1_wep73")]
+script = ExtResource("2_tetw7")

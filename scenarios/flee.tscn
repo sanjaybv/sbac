@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://d0aqshen3pu4s"]
+
+[ext_resource type="PackedScene" uid="uid://b3ej2trb8osvg" path="res://targets/click_target.tscn" id="2_rtm3k"]
+[ext_resource type="PackedScene" uid="uid://do44pgjw83f0v" path="res://vehicles/fleeing_vehicle.tscn" id="3_pjm6k"]
+
+[node name="flee" type="Node2D"]
+
+[node name="click_target" parent="." instance=ExtResource("2_rtm3k")]
+
+[node name="fleeing_vehicle" parent="." node_paths=PackedStringArray("target") instance=ExtResource("3_pjm6k")]
+target = NodePath("../click_target")
