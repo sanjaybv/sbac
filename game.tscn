@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://by1t3mp5yidhs"]
+[gd_scene load_steps=3 format=3 uid="uid://by1t3mp5yidhs"]
 
-[ext_resource type="PackedScene" uid="uid://b6ddjr5vp5weh" path="res://scenarios/arrive.tscn" id="1_2i5rx"]
+[ext_resource type="PackedScene" uid="uid://cxi54gpin4hg2" path="res://vehicles/vehicle.tscn" id="2_y4634"]
+[ext_resource type="PackedScene" uid="uid://butgg65inr3bj" path="res://targets/target.tscn" id="3_aou68"]
 
 [node name="game" type="Node2D"]
 
@@ -11,4 +12,11 @@ offset_right = 1216.0
 offset_bottom = 705.0
 color = Color(0, 0, 0.141176, 1)
 
-[node name="arrive" parent="." instance=ExtResource("1_2i5rx")]
+[node name="playground" type="Node2D" parent="."]
+
+[node name="target" parent="playground" instance=ExtResource("3_aou68")]
+
+[node name="vehicle" parent="playground" node_paths=PackedStringArray("target") instance=ExtResource("2_y4634")]
+mass = 0.3
+target = NodePath("../target")
+static_behavior = 5
