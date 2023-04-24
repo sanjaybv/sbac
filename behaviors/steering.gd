@@ -1,6 +1,6 @@
 extends Object
 
-enum Behaviors {SEEK, FLEE, PURSUE, EVADE, OFFSET_PURSUE, ARRIVE}
+enum Behaviors {SEEK, FLEE, PURSUE, EVADE, OFFSET_PURSUE, ARRIVE, AVOID_OBSTACLES, WANDER}
 
 var _behavior_funcs: Dictionary = {
 	Behaviors.SEEK: seek,
@@ -9,19 +9,33 @@ var _behavior_funcs: Dictionary = {
 	Behaviors.EVADE: evade,
 	Behaviors.OFFSET_PURSUE: offset_pursue,
 	Behaviors.ARRIVE: arrive,
+	Behaviors.AVOID_OBSTACLES: avoid_obstacles,
+	Behaviors.WANDER: wander,
 }
 
-var _max_force: float
 var _max_speed: float
 
-func _init(max_force: float, max_speed: float):
-	_max_force = max_force
+var _behavior_weights: Dictionary
+var _raycasts: Array[RayCast2D]
+
+
+func _init(max_speed: float) -> void:
 	_max_speed = max_speed
 	
-# steer applies the behavior on the character with respect to the target and returns force
-func steer(behavior: Behaviors, character: RigidBody2D, target: RigidBody2D) -> Vector2:
-	return Callable(_behavior_funcs[behavior]).call(character, target)
+
+func add_behavior(b: Behaviors, weight: float) -> void:
+	_behavior_weights[b] = weight
+
+
+func set_raycasts(rcs: Array[RayCast2D]) -> void:
+	_raycasts = rcs
 	
+# steer applies the behavior on the character with respect to the target and returns force
+func steer(character: RigidBody2D, target: RigidBody2D) -> Vector2:
+	var force: Vector2
+	for b in _behavior_weights:
+		force += Callable(_behavior_funcs[b]).call(character, target) * _behavior_weights[b]
+	return force
 
 func seek(character: RigidBody2D, target: RigidBody2D) -> Vector2:
 	var desired_velocity: Vector2 = (target.position - character.position).normalized() * _max_speed
@@ -67,6 +81,21 @@ func arrive(character: RigidBody2D, target: RigidBody2D) -> Vector2:
 	var steering = desired_velocity - character.linear_velocity
 	return steering
 
+func avoid_obstacles(character: RigidBody2D, target: RigidBody2D) -> Vector2:
+	for rc in _raycasts:
+		if rc.is_colliding() and rc.get_collider() != null:
+			var c := rc.get_collider()
+			return (rc.get_collision_point() - c.position).normalized() * _max_speed
+	return Vector2.ZERO
+
+func wander(character: RigidBody2D, target: RigidBody2D) -> Vector2:
+	var circle := Vector2(0, 100) + character.position
+	var r := Vector2.from_angle(randf_range(0, 2*PI))
+	print(r)
+	var new_target := circle + r * 100
+	
+	var desired_velocity := (new_target - character.position).normalized() * _max_speed
+	return desired_velocity - character.linear_velocity
 
 func future_target_position(character: RigidBody2D, target: RigidBody2D) -> Vector2:
 	# future_time_look_ahead = distance / speed
