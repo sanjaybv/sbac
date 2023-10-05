@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://caqiud54bwepk"]
+
+[ext_resource type="PackedScene" uid="uid://infrrx4bca6i" path="res://targets/sliding_target.tscn" id="1_2d4cr"]
+[ext_resource type="PackedScene" uid="uid://ba65gavov6hfm" path="res://vehicles/pursuing_vehicle.tscn" id="2_ebshu"]
+
+[node name="pursuit" type="Node2D"]
+
+[node name="sliding_target" parent="." instance=ExtResource("1_2d4cr")]
+position = Vector2(305, 136)
+mass = 0.01
+linear_velocity = Vector2(250, 20)
+linear_damp_mode = 1
+
+[node name="pursuing_vehicle" parent="." node_paths=PackedStringArray("target") instance=ExtResource("2_ebshu")]
+position = Vector2(116, 128)
+target = NodePath("../sliding_target")

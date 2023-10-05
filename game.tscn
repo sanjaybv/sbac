@@ -1,8 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://by1t3mp5yidhs"]
+[gd_scene load_steps=2 format=3 uid="uid://by1t3mp5yidhs"]
 
-[ext_resource type="PackedScene" uid="uid://cxi54gpin4hg2" path="res://vehicles/vehicle.tscn" id="2_y4634"]
-[ext_resource type="PackedScene" uid="uid://butgg65inr3bj" path="res://targets/target.tscn" id="3_aou68"]
-[ext_resource type="PackedScene" uid="uid://big6qeu2oi7ri" path="res://obstacle.tscn" id="3_chtlx"]
+[ext_resource type="PackedScene" uid="uid://cdwd5g0p36bei" path="res://scenarios/evade.tscn" id="1_7fx3n"]
 
 [node name="game" type="Node2D"]
 
@@ -13,23 +11,4 @@ offset_right = 1216.0
 offset_bottom = 705.0
 color = Color(0, 0, 0.141176, 1)
 
-[node name="obstacle avoidance" type="Node2D" parent="."]
-
-[node name="target" parent="obstacle avoidance" instance=ExtResource("3_aou68")]
-
-[node name="vehicle" parent="obstacle avoidance" node_paths=PackedStringArray("target") instance=ExtResource("2_y4634")]
-mass = 0.25
-linear_damp_mode = 1
-target = NodePath("../target")
-behavior = Array[int]([5])
-
-[node name="obstacles" type="Node" parent="obstacle avoidance"]
-
-[node name="obstacle" parent="obstacle avoidance/obstacles" instance=ExtResource("3_chtlx")]
-position = Vector2(163, 193)
-
-[node name="obstacle2" parent="obstacle avoidance/obstacles" instance=ExtResource("3_chtlx")]
-position = Vector2(677, 157)
-
-[node name="obstacle3" parent="obstacle avoidance/obstacles" instance=ExtResource("3_chtlx")]
-position = Vector2(482, 364)
+[node name="evade" parent="." instance=ExtResource("1_7fx3n")]

@@ -1,31 +1,13 @@
 extends RigidBody2D
 
-const Steering = preload("res://behaviors/steering.gd")
-
-const max_speed = 200
+const max_force = 100000
+const max_speed = 250
 
 @export var target: RigidBody2D
-@export var behavior: Array[Steering.Behaviors]
 
 var acceleration := Vector2.ZERO
 
 var screen := DisplayServer.window_get_size()
-
-var steering: Steering = Steering.new(max_speed)
-
-
-
-func _ready():
-	self.gravity_scale = 0
-	
-	var raycasts: Array[RayCast2D]
-	for cast in $RayCasts.get_children():
-		raycasts.append(cast)
-	steering.set_raycasts(raycasts)
-	
-	for b in behavior:
-		steering.add_behavior(b, 1.0)
-
 
 func _draw():
 	var direction = linear_velocity.normalized()
@@ -39,13 +21,20 @@ func _draw():
 	draw_line(Vector2.ZERO, linear_velocity, Color.GREEN, 2.0)
 	draw_line(Vector2.ZERO, acceleration, Color.BLUE, 2.0)
 
+func _process(delta):
+	var force := steer(target)
+	
+	var steering_force := force.limit_length(max_force)
+	acceleration = steering_force / mass
+	linear_velocity += acceleration * delta
+	linear_velocity = linear_velocity.limit_length(max_speed)
+	
+	move_and_collide(linear_velocity*delta)
+	position = position.posmodv(screen)
+	
+	queue_redraw()
 
-#func _process(delta):
-	#position = position.posmodv(screen)
-#	return
-
-
-func _physics_process(delta):
-	apply_central_force(steering.steer(self, target))
-	self.rotation = self.linear_velocity.angle()
-	# queue_redraw()
+func steer(target: RigidBody2D) -> Vector2:
+	print("steer should be overriden.")
+	assert(false)
+	return Vector2.ZERO

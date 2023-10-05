@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://4jey0e27fxnu"]
+
+[ext_resource type="PackedScene" uid="uid://butgg65inr3bj" path="res://targets/target.tscn" id="1_k7m0x"]
+
+[node name="fleeing_target" instance=ExtResource("1_k7m0x")]

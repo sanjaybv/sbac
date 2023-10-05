@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://infrrx4bca6i"]
+
+[ext_resource type="PackedScene" uid="uid://butgg65inr3bj" path="res://targets/target.tscn" id="1_8olrm"]
+[ext_resource type="Script" path="res://targets/sliding_target.gd" id="2_ulyfq"]
+
+[node name="sliding_target" instance=ExtResource("1_8olrm")]
+linear_velocity = Vector2(50, 0)
+script = ExtResource("2_ulyfq")

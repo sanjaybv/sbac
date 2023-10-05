@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://cdwd5g0p36bei"]
+
+[ext_resource type="PackedScene" uid="uid://infrrx4bca6i" path="res://targets/sliding_target.tscn" id="1_5kdus"]
+[ext_resource type="PackedScene" uid="uid://cjm4ncojk7pki" path="res://vehicles/evading_vehicle.tscn" id="2_4vqy5"]
+
+[node name="evade" type="Node2D"]
+
+[node name="sliding_target" parent="." instance=ExtResource("1_5kdus")]
+linear_damp_mode = 1
+
+[node name="evading_vehicle" parent="." node_paths=PackedStringArray("target") instance=ExtResource("2_4vqy5")]
+target = NodePath("../sliding_target")

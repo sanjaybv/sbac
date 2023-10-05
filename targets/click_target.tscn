@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://b3ej2trb8osvg"]
+
+[ext_resource type="Script" path="res://targets/click_target.gd" id="1_rmt10"]
+
+[node name="click_target" type="RigidBody2D"]
+gravity_scale = 0.0
+script = ExtResource("1_rmt10")
