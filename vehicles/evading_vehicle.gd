@@ -17,5 +17,5 @@ func future_target_position() -> Vector2:
 	if !linear_velocity.is_zero_approx():
 		look_ahead = (position.distance_to(target.position)) / linear_velocity.length()
 	
-	# 20 is a constant, a turning parameter as Chris Reynolds puts it.
+	# 20 is a constant, a turning parameter as Craig Reynolds puts it.
 	return target.position + (target.linear_velocity * look_ahead) / 20

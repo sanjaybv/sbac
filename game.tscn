@@ -1,6 +1,14 @@
-[gd_scene load_steps=2 format=3 uid="uid://by1t3mp5yidhs"]
+[gd_scene load_steps=5 format=3 uid="uid://by1t3mp5yidhs"]
 
-[ext_resource type="PackedScene" uid="uid://cdwd5g0p36bei" path="res://scenarios/evade.tscn" id="1_7fx3n"]
+[ext_resource type="Script" path="res://CharacterBody2D.gd" id="1_r2msj"]
+[ext_resource type="Texture2D" uid="uid://ckd2p3irjcbt1" path="res://icon.svg" id="2_sts8x"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k6l0d"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_hro4s"]
+vertices = PackedVector2Array(59, 233, -30, -25, 1156, 2, 775, 157, 1156, 652, 653, 436, 6, 649, 24, 309)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(3, 2, 4, 5), PackedInt32Array(5, 4, 6, 7)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-30, -25, 1156, 2, 1156, 652, 6, 649, 24, 309, 653, 436, 775, 157, 59, 233)])
 
 [node name="game" type="Node2D"]
 
@@ -11,4 +19,19 @@ offset_right = 1216.0
 offset_bottom = 705.0
 color = Color(0, 0, 0.141176, 1)
 
-[node name="evade" parent="." instance=ExtResource("1_7fx3n")]
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+motion_mode = 1
+script = ExtResource("1_r2msj")
+
+[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
+scale = Vector2(0.378907, 0.378907)
+texture = ExtResource("2_sts8x")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+shape = SubResource("RectangleShape2D_k6l0d")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="CharacterBody2D"]
+target_desired_distance = 15.0
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="CharacterBody2D/NavigationAgent2D"]
+navigation_polygon = SubResource("NavigationPolygon_hro4s")
